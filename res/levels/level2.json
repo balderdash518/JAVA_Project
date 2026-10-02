@@ -1,0 +1,123 @@
+{
+  "file": "Level2_If.java",
+  "title": "if / else",
+  "task": "Get the key and open the door",
+  "new": [
+    "Bugs",
+    "shooting ->",
+    "try { checkpoints",
+    "the true key"
+  ],
+  "wallText": "wall.txt",
+  "comments": [
+    "// up here",
+    "// if (hasKey)",
+    "// almost",
+    "// Click or J: shoot ->"
+  ],
+  "blocks": [
+    {
+      "id": "open",
+      "kind": "LINE",
+      "text": "door.open();"
+    },
+    {
+      "id": "alarm",
+      "kind": "LINE",
+      "text": "alarm();"
+    }
+  ],
+  "pickups": {
+    "1": "open",
+    "2": "alarm"
+  },
+  "skeleton": [
+    "public static void main(String[] args) {",
+    "    if (hasKey) {",
+    "        {{yes}}",
+    "    } else {",
+    "        {{no}}",
+    "    }",
+    "}"
+  ],
+  "slots": {
+    "yes": {
+      "kind": "LINE"
+    },
+    "no": {
+      "kind": "LINE"
+    }
+  },
+  "outcomes": [
+    {
+      "when": {
+        "yes": "open",
+        "no": "alarm",
+        "@key": "yes"
+      },
+      "success": true,
+      "output": "hasKey = true\ndoor opened",
+      "message": "BUILD SUCCESSFUL. hasKey was true, the door is open.",
+      "effects": [
+        {
+          "type": "OPEN_DOOR"
+        }
+      ]
+    },
+    {
+      "when": {
+        "yes": "open",
+        "no": "alarm",
+        "@key": "no"
+      },
+      "success": false,
+      "output": "hasKey = false\nALARM! ALARM!",
+      "error": "AssertionError: hasKey was false, alarm() ran",
+      "message": "AssertionError: hasKey was false, alarm() ran",
+      "effects": [
+        {
+          "type": "SPAWN_BUGS",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "when": {
+        "yes": "alarm",
+        "no": "open",
+        "@key": "yes"
+      },
+      "success": false,
+      "output": "hasKey = true\nALARM! ALARM!",
+      "error": "AssertionError: hasKey was true, alarm() ran",
+      "message": "AssertionError: hasKey was true, alarm() ran",
+      "effects": [
+        {
+          "type": "SPAWN_BUGS",
+          "count": 3
+        }
+      ]
+    },
+    {
+      "when": {
+        "yes": "alarm",
+        "no": "open",
+        "@key": "no"
+      },
+      "success": false,
+      "focus": "D",
+      "output": "hasKey = false",
+      "error": "java.lang.IllegalStateException: door is locked",
+      "message": "java.lang.IllegalStateException: door is locked",
+      "effects": [
+        {
+          "type": "ERROR_TEXT",
+          "anchor": "D",
+          "dx": 0.5,
+          "dy": -2,
+          "text": "IllegalStateException: door is locked"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "file": "Level0_Hello.java",
+  "title": "Hello World",
+  "task": "Print Hello to open the exit",
+  "new": [
+    "// comment platforms",
+    "double jump",
+    "javac terminal",
+    "the editor"
+  ],
+  "wallText": "wall.txt",
+  "comments": [
+    "// Tab: open the editor",
+    "// W: jump, W again: double jump",
+    "// S to drop down",
+    "// E at javac: run code",
+    "// A/D to move"
+  ],
+  "blocks": [
+    {
+      "id": "hello",
+      "kind": "LINE",
+      "text": "System.out.println(\"Hello\");"
+    },
+    {
+      "id": "noquotes",
+      "kind": "LINE",
+      "text": "System.out.println(Hello);"
+    }
+  ],
+  "pickups": {
+    "1": "hello",
+    "2": "noquotes"
+  },
+  "skeleton": [
+    "public class Hello {",
+    "    public static void main(String[] args) {",
+    "        {{line}}",
+    "    }",
+    "}"
+  ],
+  "slots": {
+    "line": {
+      "kind": "LINE"
+    }
+  },
+  "outcomes": [
+    {
+      "when": {
+        "line": "hello"
+      },
+      "success": true,
+      "output": "Hello",
+      "focus": "E",
+      "message": "BUILD SUCCESSFUL. Output: Hello. The exit } is open."
+    },
+    {
+      "when": {
+        "line": "noquotes"
+      },
+      "success": false,
+      "focus": "E",
+      "error": "error: cannot find symbol: Hello",
+      "message": "error: cannot find symbol: Hello",
+      "effects": [
+        {
+          "type": "ERROR_TEXT",
+          "anchor": "E",
+          "dy": -3,
+          "text": "cannot find symbol: Hello"
+        }
+      ]
+    }
+  ]
+}

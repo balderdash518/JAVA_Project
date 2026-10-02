@@ -1,0 +1,162 @@
+{
+  "file": "Level4_Array.java",
+  "title": "Arrays and sorting",
+  "task": "Sort the pillars into stairs",
+  "new": [
+    "volatile",
+    "while(true) platforms",
+    "final"
+  ],
+  "wallText": "wall.txt",
+  "comments": [
+    "// sort the pillars",
+    "// volatile: blink",
+    "// while(true) { ride(); }"
+  ],
+  "blocks": [
+    {
+      "id": "gt",
+      "kind": "TOKEN",
+      "text": ">"
+    },
+    {
+      "id": "lt",
+      "kind": "TOKEN",
+      "text": "<"
+    },
+    {
+      "id": "len",
+      "kind": "TOKEN",
+      "text": "h.length"
+    },
+    {
+      "id": "len1",
+      "kind": "TOKEN",
+      "text": "h.length - 1"
+    }
+  ],
+  "pickups": {
+    "1": "gt",
+    "2": "lt",
+    "3": "len",
+    "4": "len1"
+  },
+  "skeleton": [
+    "int[] h = {4, 3, 1, 2};",
+    "for (int i = 0; i < h.length - 1; i++) {",
+    "    for (int j = 0; j < {{bound}}; j++) {",
+    "        if (h[j] {{cmp}} h[j + 1]) {",
+    "            swap(h, j, j + 1);",
+    "        }",
+    "    }",
+    "}",
+    "System.out.println(Arrays.toString(h));"
+  ],
+  "slots": {
+    "bound": {
+      "kind": "TOKEN"
+    },
+    "cmp": {
+      "kind": "TOKEN"
+    }
+  },
+  "pillars": {
+    "values": [
+      4,
+      3,
+      1,
+      2
+    ],
+    "unit": 2
+  },
+  "movers": [
+    {
+      "dx": 13,
+      "dy": 0,
+      "period": 360
+    }
+  ],
+  "outcomes": [
+    {
+      "when": {
+        "bound": "len1",
+        "cmp": "gt"
+      },
+      "success": true,
+      "output": "[1, 2, 3, 4]",
+      "outputAfter": true,
+      "message": "BUILD SUCCESSFUL. Output: [1, 2, 3, 4]",
+      "effects": [
+        {
+          "type": "SORT_PILLARS",
+          "cmp": ">",
+          "bound": "length-1"
+        }
+      ]
+    },
+    {
+      "when": {
+        "bound": "len1",
+        "cmp": "lt"
+      },
+      "success": false,
+      "output": "[4, 3, 2, 1]",
+      "outputAfter": true,
+      "error": "AssertionError: expected [1, 2, 3, 4] but was [4, 3, 2, 1]",
+      "message": "AssertionError: expected [1, 2, 3, 4] but was [4, 3, 2, 1]",
+      "effects": [
+        {
+          "type": "SORT_PILLARS",
+          "cmp": "<",
+          "bound": "length-1"
+        }
+      ]
+    },
+    {
+      "when": {
+        "bound": "len",
+        "cmp": "gt"
+      },
+      "success": false,
+      "error": "ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4",
+      "message": "java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4",
+      "effects": [
+        {
+          "type": "SORT_PILLARS",
+          "cmp": ">",
+          "bound": "length"
+        }
+      ]
+    },
+    {
+      "when": {
+        "bound": "len",
+        "cmp": "lt"
+      },
+      "success": false,
+      "error": "ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4",
+      "message": "java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4",
+      "effects": [
+        {
+          "type": "SORT_PILLARS",
+          "cmp": "<",
+          "bound": "length"
+        }
+      ]
+    }
+  ],
+  "defaultFailure": {
+    "success": false,
+    "error": "error: illegal start of expression",
+    "message": "error: illegal start of expression",
+    "effects": [
+      {
+        "type": "ERROR_TEXT",
+        "anchor": "Q",
+        "dx": 4,
+        "dy": -4,
+        "text": "illegal start of expression"
+      }
+    ]
+  }
+}

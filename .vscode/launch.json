@@ -1,0 +1,53 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Compile Quest",
+      "request": "launch",
+      "mainClass": "com.compilequest.Main",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "type": "java",
+      "name": "Compile Quest: start in a level",
+      "request": "launch",
+      "mainClass": "com.compilequest.Main",
+      "cwd": "${workspaceFolder}",
+      "vmArgs": "-Dcq.level=${input:level}"
+    },
+    {
+      "type": "java",
+      "name": "Dev: check maps",
+      "request": "launch",
+      "mainClass": "com.compilequest.Main",
+      "cwd": "${workspaceFolder}",
+      "args": "--mapcheck"
+    },
+    {
+      "type": "java",
+      "name": "Dev: check game flows",
+      "request": "launch",
+      "mainClass": "com.compilequest.Main",
+      "cwd": "${workspaceFolder}",
+      "args": "--flowcheck"
+    },
+    {
+      "type": "java",
+      "name": "Dev: render screenshots",
+      "request": "launch",
+      "mainClass": "com.compilequest.Main",
+      "cwd": "${workspaceFolder}",
+      "args": "--snapshot build/snapshots"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "level",
+      "type": "pickString",
+      "description": "Level to start in",
+      "options": ["0", "1", "2", "3", "4"],
+      "default": "0"
+    }
+  ]
+}

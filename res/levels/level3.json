@@ -1,0 +1,243 @@
+{
+  "file": "Level3_For.java",
+  "title": "for loops",
+  "task": "Build an 8-tile bridge to the exit",
+  "new": [
+    "transient",
+    "break",
+    "water",
+    "!Exception"
+  ],
+  "wallText": "wall.txt",
+  "comments": [
+    "// transient",
+    "// break: shoot it",
+    "// catch the throw",
+    "// done"
+  ],
+  "blocks": [
+    {
+      "id": "lt",
+      "kind": "TOKEN",
+      "text": "<"
+    },
+    {
+      "id": "le",
+      "kind": "TOKEN",
+      "text": "<="
+    },
+    {
+      "id": "n8",
+      "kind": "TOKEN",
+      "text": "8"
+    },
+    {
+      "id": "n5",
+      "kind": "TOKEN",
+      "text": "5"
+    },
+    {
+      "id": "print",
+      "kind": "LINE",
+      "text": "System.out.print(\"=\");"
+    },
+    {
+      "id": "println",
+      "kind": "LINE",
+      "text": "System.out.println(\"=\");"
+    }
+  ],
+  "pickups": {
+    "1": "lt",
+    "2": "le",
+    "3": "n8",
+    "4": "n5",
+    "5": "print",
+    "6": "println"
+  },
+  "skeleton": [
+    "public static void main(String[] args) {",
+    "    for (int i = 0; i {{op}} {{n}}; i++) {",
+    "        {{body}}",
+    "    }",
+    "}"
+  ],
+  "slots": {
+    "op": {
+      "kind": "TOKEN"
+    },
+    "n": {
+      "kind": "TOKEN"
+    },
+    "body": {
+      "kind": "LINE"
+    }
+  },
+  "outcomes": [
+    {
+      "when": {
+        "body": "println",
+        "op": "lt",
+        "n": "n8"
+      },
+      "success": false,
+      "output": "=\n=\n=\n=\n=\n=\n=\n=",
+      "error": "AssertionError: expected one line, got 8 lines",
+      "message": "AssertionError: expected one line, got 8 lines",
+      "effects": [
+        {
+          "type": "BRIDGE",
+          "anchor": "_",
+          "dx": 3,
+          "length": 8,
+          "dir": "V"
+        }
+      ]
+    },
+    {
+      "when": {
+        "body": "println",
+        "op": "le",
+        "n": "n8"
+      },
+      "success": false,
+      "output": "=\n=\n=\n=\n=\n=\n=\n=\n=",
+      "error": "AssertionError: expected one line, got 9 lines",
+      "message": "AssertionError: expected one line, got 9 lines",
+      "effects": [
+        {
+          "type": "BRIDGE",
+          "anchor": "_",
+          "dx": 3,
+          "length": 9,
+          "dir": "V"
+        }
+      ]
+    },
+    {
+      "when": {
+        "body": "println",
+        "op": "lt",
+        "n": "n5"
+      },
+      "success": false,
+      "output": "=\n=\n=\n=\n=",
+      "error": "AssertionError: expected one line, got 5 lines",
+      "message": "AssertionError: expected one line, got 5 lines",
+      "effects": [
+        {
+          "type": "BRIDGE",
+          "anchor": "_",
+          "dx": 3,
+          "length": 5,
+          "dir": "V"
+        }
+      ]
+    },
+    {
+      "when": {
+        "body": "println",
+        "op": "le",
+        "n": "n5"
+      },
+      "success": false,
+      "output": "=\n=\n=\n=\n=\n=",
+      "error": "AssertionError: expected one line, got 6 lines",
+      "message": "AssertionError: expected one line, got 6 lines",
+      "effects": [
+        {
+          "type": "BRIDGE",
+          "anchor": "_",
+          "dx": 3,
+          "length": 6,
+          "dir": "V"
+        }
+      ]
+    },
+    {
+      "when": {
+        "op": "lt",
+        "n": "n8"
+      },
+      "success": true,
+      "output": "========",
+      "message": "BUILD SUCCESSFUL. Bridge length: 8",
+      "effects": [
+        {
+          "type": "BRIDGE",
+          "anchor": "_",
+          "length": 8,
+          "dir": "H"
+        }
+      ]
+    },
+    {
+      "when": {
+        "op": "le",
+        "n": "n8"
+      },
+      "success": false,
+      "output": "=========",
+      "error": "AssertionError: bridge length expected 8 but was 9",
+      "message": "AssertionError: bridge length expected 8 but was 9",
+      "effects": [
+        {
+          "type": "BRIDGE",
+          "anchor": "_",
+          "length": 9,
+          "dir": "H"
+        }
+      ]
+    },
+    {
+      "when": {
+        "op": "lt",
+        "n": "n5"
+      },
+      "success": false,
+      "output": "=====",
+      "error": "AssertionError: bridge length expected 8 but was 5",
+      "message": "AssertionError: bridge length expected 8 but was 5",
+      "effects": [
+        {
+          "type": "BRIDGE",
+          "anchor": "_",
+          "length": 5,
+          "dir": "H"
+        }
+      ]
+    },
+    {
+      "when": {
+        "op": "le",
+        "n": "n5"
+      },
+      "success": false,
+      "output": "======",
+      "error": "AssertionError: bridge length expected 8 but was 6",
+      "message": "AssertionError: bridge length expected 8 but was 6",
+      "effects": [
+        {
+          "type": "BRIDGE",
+          "anchor": "_",
+          "length": 6,
+          "dir": "H"
+        }
+      ]
+    }
+  ],
+  "defaultFailure": {
+    "success": false,
+    "error": "error: illegal start of expression",
+    "message": "error: illegal start of expression",
+    "effects": [
+      {
+        "type": "ERROR_TEXT",
+        "anchor": "_",
+        "dx": 4,
+        "dy": -4,
+        "text": "illegal start of expression"
+      }
+    ]
+  }
+}

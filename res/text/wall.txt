@@ -1,0 +1,143 @@
+package world.source;
+
+import java.util.Arrays;
+import java.util.function.IntPredicate;
+
+/** The code this world is built from. Every wall is a line of it. */
+public final class Source {
+    private static final int DEFAULT_CAPACITY = 16;
+    private Object[] elements = new Object[DEFAULT_CAPACITY];
+    private int size;
+
+    public void add(Object value) {
+        if (size == elements.length) {
+            elements = Arrays.copyOf(elements, size * 2);
+        }
+        elements[size++] = value;
+    }
+
+    public Object get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index " + index + " out of bounds for length " + size);
+        }
+        return elements[index];
+    }
+
+    public int indexOf(Object value) {
+        for (int i = 0; i < size; i++) {
+            if (value == null ? elements[i] == null : value.equals(elements[i])) return i;
+        }
+        return -1;
+    }
+
+    static void bubbleSort(int[] h) {
+        for (int i = 0; i < h.length - 1; i++) {
+            for (int j = 0; j < h.length - 1 - i; j++) {
+                if (h[j] > h[j + 1]) {
+                    int tmp = h[j];
+                    h[j] = h[j + 1];
+                    h[j + 1] = tmp;
+                }
+            }
+        }
+    }
+
+    static int binarySearch(int[] a, int key) {
+        int lo = 0, hi = a.length - 1;
+        while (lo <= hi) {
+            int mid = (lo + hi) >>> 1;
+            if (a[mid] < key) lo = mid + 1;
+            else if (a[mid] > key) hi = mid - 1;
+            else return mid;
+        }
+        return -(lo + 1);
+    }
+
+    static long fib(int n) {
+        long a = 0, b = 1;
+        for (int i = 0; i < n; i++) {
+            long t = a + b;
+            a = b;
+            b = t;
+        }
+        return a;
+    }
+
+    static int count(int[] values, IntPredicate test) {
+        int n = 0;
+        for (int v : values) if (test.test(v)) n++;
+        return n;
+    }
+
+    static String reverse(String s) {
+        StringBuilder sb = new StringBuilder(s.length());
+        for (int i = s.length() - 1; i >= 0; i--) sb.append(s.charAt(i));
+        return sb.toString();
+    }
+
+    static boolean isPrime(int n) {
+        if (n < 2) return false;
+        for (int d = 2; (long) d * d <= n; d++) if (n % d == 0) return false;
+        return true;
+    }
+
+    static int gcd(int a, int b) { return b == 0 ? a : gcd(b, a % b); }
+
+    static int[][] transpose(int[][] m) {
+        int[][] t = new int[m[0].length][m.length];
+        for (int r = 0; r < m.length; r++)
+            for (int c = 0; c < m[0].length; c++)
+                t[c][r] = m[r][c];
+        return t;
+    }
+
+    public static void main(String[] args) {
+        Source world = new Source();
+        for (int i = 0; i < 8; i++) world.add("=");
+        System.out.println("Hello");
+        int height = 5;
+        if (height > 3) System.out.println("high enough");
+        int[] h = {4, 3, 1, 2};
+        bubbleSort(h);
+        System.out.println(Arrays.toString(h));
+        System.out.println(fib(42) + " " + gcd(48, 18) + " " + isPrime(97));
+        System.out.println(reverse("tseuQ elipmoC"));
+    }
+}
+
+interface Level {
+    void load();
+    default boolean solved() { return false; }
+}
+
+record Tile(char glyph, boolean solid) {
+    static final Tile EMPTY = new Tile(' ', false);
+}
+
+enum State { IDLE, RUN, JUMP, FALL, HURT }
+
+class Player {
+    double x, y, vx, vy;
+    boolean onGround;
+    int hp = 5;
+
+    void jump() {
+        if (onGround) vy = -12;
+    }
+
+    void update(double gravity) {
+        vy = Math.min(vy + gravity, 12);
+        x += vx;
+        y += vy;
+    }
+}
+
+class Bug extends RuntimeException {
+    Bug(String where) { super("Bug at " + where); }
+}
+
+class Javac {
+    static boolean compile(String program) {
+        return program != null && program.endsWith("}");
+    }
+}

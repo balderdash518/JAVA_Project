@@ -1,0 +1,51 @@
+{
+  "file": "Level1_Var.java",
+  "title": "Variables",
+  "task": "Raise the platform to climb the wall",
+  "new": ["++ springs", "null spikes", "gc()"],
+  "wallText": "wall.txt",
+  "comments": ["// ++ launches you up", "// null hurts", "// mind the gap"],
+  "blocks": [
+    {"id": "n5", "kind": "TOKEN", "text": "5"},
+    {"id": "n3", "kind": "TOKEN", "text": "3"},
+    {"id": "s5", "kind": "TOKEN", "text": "\"5\""}
+  ],
+  "pickups": {"1": "n5", "2": "n3", "3": "s5"},
+  "skeleton": [
+    "public static void main(String[] args) {",
+    "    int height = {{h}};",
+    "    platform.rise(height);",
+    "}"
+  ],
+  "slots": {"h": {"kind": "TOKEN"}},
+  "outcomes": [
+    {
+      "when": {"h": "n5"},
+      "success": true,
+      "output": "platform height: 5",
+      "outputAfter": true,
+      "message": "BUILD SUCCESSFUL. platform height: 5",
+      "effects": [{"type": "RAISE", "anchor": "L", "height": 5}]
+    },
+    {
+      "when": {"h": "n3"},
+      "success": false,
+      "output": "platform height: 3",
+      "outputAfter": true,
+      "error": "AssertionError: wall not reached, platform height was 3",
+      "message": "AssertionError: wall not reached, platform height was 3",
+      "effects": [{"type": "RAISE", "anchor": "L", "height": 3}]
+    },
+    {
+      "when": {"h": "s5"},
+      "success": false,
+      "focus": "L",
+      "error": "error: incompatible types: String cannot be converted to int",
+      "message": "error: incompatible types: String cannot be converted to int",
+      "effects": [
+        {"type": "SHATTER", "anchor": "L", "text": "\"5\"\"5\"int"},
+        {"type": "ERROR_TEXT", "anchor": "L", "dx": 1, "dy": -3, "text": "incompatible types: String -> int"}
+      ]
+    }
+  ]
+}
